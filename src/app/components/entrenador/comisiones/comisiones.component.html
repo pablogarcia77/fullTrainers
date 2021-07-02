@@ -1,0 +1,38 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-12">
+            <h1>Lista de Comisiones por Cursos</h1>
+        </div>
+    </div>
+    <div class="row" *ngFor="let curso of cursos">
+      <div class="col-12">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <h2>{{curso.nombre}}</h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <mat-card *ngFor="let comision of curso.comisiones" class="cardComision">
+                        <mat-card-title>
+                            <h2>{{comision.nombre}}</h2>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <div class="row">
+                                <span>Horarios: {{comision.horario}}</span>
+                            </div>
+                            <div class="row">
+                                <span>Cupo: {{comision.cupo}}</span>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-raised-button color="primary" [routerLink]="['/panel/comision/',comision.idComision]" class="right">Ver Alumnos</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+</div>

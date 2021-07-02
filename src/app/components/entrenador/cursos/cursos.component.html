@@ -1,0 +1,79 @@
+<div class="contenedor">
+  <div class="row">
+    <div class="col-12">
+      <button mat-stroked-button color="primary" (click)="registrarCurso()">Nuevo Curso</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <mat-form-field>
+        <mat-label>Busqueda</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Futbol" #input>
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" matSort>
+        
+      
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="id_cursos">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+          <td mat-cell *matCellDef="let curso"> {{curso.id_cursos}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let curso"> {{curso.nombre}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="habilita_inscripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Inscripcion Habilitada </th>
+          <td mat-cell *matCellDef="let curso">
+            <mat-slide-toggle [checked]="curso.habilita_inscripcion == 1" (change)="habilitarInscripcion(curso)">
+              <span *ngIf="curso.habilita_inscripcion == 1">Si</span>
+              <span *ngIf="curso.habilita_inscripcion == 0">No</span>
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado_publicacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Curso Publicado </th>
+          <td mat-cell *matCellDef="let curso">
+            <mat-slide-toggle [checked]="curso.estado_publicacion == 1" (change)="publicarCurso(curso)">
+              <span *ngIf="curso.estado_publicacion == 1">Si</span>
+              <span *ngIf="curso.estado_publicacion == 0">No</span>
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
+        
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="precio_inscripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Inscripción </th>
+          <td mat-cell *matCellDef="let curso"> ${{curso.precio_inscripcion}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="precio_cuota">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Cuota </th>
+          <td mat-cell *matCellDef="let curso"> ${{curso.precio_cuota}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let curso">
+            <mat-icon aria-hidden="false" aria-label="Editar" class="edit" (click)="editarCurso(curso)">edit</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Eliminar" class="delete" (click)="eliminarCurso(curso.nombre,curso.id_cursos)">delete</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Ver Comisiones" class="view" (click)="verComisiones(curso)">supervised_user_circle</mat-icon>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
+    </div>
+  </div>
+</div>

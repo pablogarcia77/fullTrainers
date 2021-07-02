@@ -1,0 +1,14 @@
+<h1>{{curso?.nombre}}</h1>
+<h2>Comisiones</h2>
+<h3 *ngIf="comisiones.length == 0">Este curso todavía no tiene comisiones</h3>
+<mat-card *ngFor="let comision of comisiones" [routerLink]="['panel/comision/',comision.id_comisiones]" (click)="closeDialog()">
+    <div class="row">
+        <div class="col-4">
+            <p>{{comision?.nombre}}</p>
+        </div>
+        <div class="col-8">
+            <p>{{comision?.horario_dias}}</p>
+        </div>
+    </div>
+</mat-card>
+<button mat-raised-button color="primary" class="w-100" (click)="nuevaComision()">Nueva Comision</button>

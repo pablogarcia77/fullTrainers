@@ -1,0 +1,17 @@
+<h1>Confirme</h1>
+<div class="row">
+    <div class="col-12">
+        <p>¿Está seguro que desea eliminar el curso {{nombre}}?</p>
+    </div>
+</div>
+<div class="row" *ngIf="estado">
+    <div class="col-12">Curso eliminado correctamente</div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <button mat-raised-button color="primary" class="w-100" type="button" (click)="eliminarCurso()">Aceptar</button>
+    </div>
+    <div class="col-6">
+        <button mat-raised-button color="warn" class="w-100" type="button" [mat-dialog-close]="true">Cancelar</button>
+    </div>
+</div>

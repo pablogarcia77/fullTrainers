@@ -1,0 +1,117 @@
+<h1>Editar Alumno</h1>
+<div class="example-container">
+    <div class="form-container">
+        <form [formGroup]="alumnoForm" (submit)="editarAlumno()">
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Apellidos</mat-label>
+                        <input matInput formControlName="apellidos">
+                        <mat-error *ngIf="alumnoForm.controls.apellidos.touched && alumnoForm.controls.apellidos.invalid">
+                        <span *ngIf="alumnoForm.controls.apellidos.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Nombres</mat-label>
+                        <input matInput formControlName="nombres" required>
+                        <mat-error *ngIf="alumnoForm.controls.nombres.touched && alumnoForm.controls.nombres.invalid">
+                        <span *ngIf="alumnoForm.controls.nombres.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>DNI</mat-label>
+                        <input matInput formControlName="dni">
+                        <mat-error *ngIf="alumnoForm.controls.dni.touched && alumnoForm.controls.dni.invalid">
+                        <span *ngIf="alumnoForm.controls.dni.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Celular</mat-label>
+                        <input matInput formControlName="celular">
+                        <mat-error *ngIf="alumnoForm.controls.celular.touched && alumnoForm.controls.celular.invalid">
+                        <span *ngIf="alumnoForm.controls.celular.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="mail">
+                        <mat-error *ngIf="alumnoForm.controls.mail.touched && alumnoForm.controls.mail.invalid">
+                            <span *ngIf="alumnoForm.controls.mail.errors?.required">Campo obligatorio</span>
+                            <span *ngIf="alumnoForm.controls.mail.errors?.email">Email invalido</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Calle</mat-label>
+                        <input matInput formControlName="direccion_calle">
+                        <mat-error *ngIf="alumnoForm.controls.direccion_calle.touched && alumnoForm.controls.direccion_calle.invalid">
+                        <span *ngIf="alumnoForm.controls.direccion_calle.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Nro.</mat-label>
+                        <input matInput formControlName="direccion_numero">
+                        <mat-error *ngIf="alumnoForm.controls.direccion_numero.touched && alumnoForm.controls.direccion_numero.invalid">
+                        <span *ngIf="alumnoForm.controls.direccion_numero.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Barrio</mat-label>
+                        <input matInput formControlName="direccion_barrio">
+                        <mat-error *ngIf="alumnoForm.controls.direccion_barrio.touched && alumnoForm.controls.direccion_barrio.invalid">
+                        <span *ngIf="alumnoForm.controls.direccion_barrio.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Localidad</mat-label>
+                        <input matInput formControlName="direccion_localidad">
+                        <mat-error *ngIf="alumnoForm.controls.direccion_localidad.touched && alumnoForm.controls.direccion_localidad.invalid">
+                        <span *ngIf="alumnoForm.controls.direccion_localidad.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" *ngIf="estado">
+                <div class="col s12">
+                    <p>Alumno registrado correctamente</p>
+                </div>
+            </div>
+            <div class="row" *ngIf="!estado && estado != undefined">
+                <div class="col s12">
+                    <p>Ocurrio un error</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button mat-raised-button color="primary" class="w-100" type="submit">Guardar</button>
+                </div>
+                <div class="col-6">
+                    <button mat-raised-button color="warn" class="w-100" type="button" [mat-dialog-close]="true">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+<h1>Editar Curso</h1>
+<div class="example-container">
+    <div class="form-container">
+        <form [formGroup]="cursoForm" (submit)="editarCurso()">
+            <div class="row">
+                <div class="col-12">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                          <mat-card-title>Imagen de Presentación</mat-card-title>
+                        </mat-card-header>
+                        <div class="image-container">
+                            <img mat-card-image [src]="curso?.url_imagen_presentacion" alt="curso?.nombre" class="image">
+                        </div>
+                        <mat-progress-bar mode="determinate" [value]="progress" *ngIf="progress > 0"></mat-progress-bar>
+                        <mat-card-actions>
+                            <input type="file" mat-raised-button accept="image/*" (change)="readThis($event)">
+                          <!-- <button mat-button>Subir Imagen</button> -->
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label> Nombre </mat-label>
+                        <input matInput formControlName="nombre" required>
+                        <mat-error *ngIf="cursoForm.controls.nombre.touched && cursoForm.controls.nombre.invalid">
+                            <span *ngIf="cursoForm.controls.nombre.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label> Descripcion</mat-label>
+                        <input matInput formControlName="descripcion">
+                        <mat-error *ngIf="cursoForm.controls.descripcion.touched && cursoForm.controls.descripcion.invalid">
+                            <span *ngIf="cursoForm.controls.descripcion.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Publico Destinado</mat-label>
+                        <input matInput formControlName="publico_destinado">
+                        <mat-error *ngIf="cursoForm.controls.publico_destinado.touched && cursoForm.controls.publico_destinado.invalid">
+                            <span *ngIf="cursoForm.controls.publico_destinado.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Requisitos</mat-label>
+                        <input matInput formControlName="requisitos">
+                        <mat-error *ngIf="cursoForm.controls.requisitos.touched && cursoForm.controls.requisitos.invalid">
+                            <span *ngIf="cursoForm.controls.requisitos.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Url imagen de presentacion</mat-label>
+                        <input matInput formControlName="url_imagen_presentacion">
+                        <mat-error *ngIf="cursoForm.controls.url_imagen_presentacion.touched && cursoForm.controls.url_imagen_presentacion.invalid">
+                            <span *ngIf="cursoForm.controls.url_imagen_presentacion.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Url video presentacion</mat-label>
+                        <input matInput formControlName="url_video_presentacion">
+                        <mat-error *ngIf="cursoForm.controls.url_video_presentacion.touched && cursoForm.controls.url_video_presentacion.invalid">
+                            <span *ngIf="cursoForm.controls.url_video_presentacion.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label> Precio de Inscripcion</mat-label>
+                        <input matInput formControlName="precio_inscripcion">
+                        <mat-error *ngIf="cursoForm.controls.precio_inscripcion.touched && cursoForm.controls.precio_inscripcion.invalid">
+                            <span *ngIf="cursoForm.controls.precio_inscripcion.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label> Precio por Cuota</mat-label>
+                        <input matInput formControlName="precio_cuota">
+                        <mat-error *ngIf="cursoForm.controls.precio_cuota.touched && cursoForm.controls.precio_cuota.invalid">
+                        <span *ngIf="cursoForm.controls.precio_cuota.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label> Cantidad de Cuotas</mat-label>
+                        <input matInput formControlName="cantidad_cuotas">
+                        <mat-error *ngIf="cursoForm.controls.cantidad_cuotas.touched && cursoForm.controls.cantidad_cuotas.invalid">
+                            <span *ngIf="cursoForm.controls.cantidad_cuotas.errors?.required">Campo obligatorio</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-6" *ngIf="selected">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Elija un rubro del curso</mat-label>
+                        <!-- <mat-select [(value)]="selected.id_subrubros" formControlName="subrubro" (selectionChange)="setSubrubro($event.value)">
+                            <mat-option [value]="subrubro.id_subrubros" *ngFor="let subrubro of subrubros">{{subrubro.nombre}}</mat-option>
+                        </mat-select> -->
+                        <mat-select [(value)]="selected" formControlName="subrubro">
+                            <mat-option [value]="subrubro" *ngFor="let subrubro of subrubros">{{subrubro.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row" *ngIf="estado">
+                <div class="col s12">
+                    <p>Curso editado correctamente</p>
+                </div>
+            </div>
+            <div class="row" *ngIf="!estado && estado != undefined">
+                <div class="col s12">
+                    <p>Ocurrio un error, intente nuevamente</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button mat-raised-button color="primary" class="w-100" type="submit">Guardar</button>
+                </div>
+                <div class="col-6">
+                    <button mat-raised-button color="warn" class="w-100" type="button" [mat-dialog-close]="true">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
