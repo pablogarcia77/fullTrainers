@@ -2,6 +2,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subrubro } from 'src/app/interfaces/subrubro';
 import { CursosService } from 'src/app/services/cursos.service';
@@ -25,8 +26,6 @@ export class RegistroCursoComponent implements OnInit {
 
   public image!:any;
 
-  estado: boolean = false;
-
   public subrubros!: Array<Subrubro>
 
   constructor(
@@ -35,7 +34,8 @@ export class RegistroCursoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -86,7 +86,12 @@ export class RegistroCursoComponent implements OnInit {
 
     this.cursosService.postCursos(curso).subscribe( 
       () => {
-        this.estado = true;
+        this.snackBar.open('Curso creado correctamente','Aceptar',
+          {
+            duration: 5000,
+            horizontalPosition: 'end'
+          }
+        )
         let currentUrl = this.router.url;
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
@@ -107,7 +112,6 @@ export class RegistroCursoComponent implements OnInit {
     myReader.readAsDataURL(file);
     myReader.onloadend = e => {
       this.image = myReader.result;
-      // console.log(this.image);
       let imageSinDescripcion = '';
       if(this.image.includes('data:image/png;base64,')){
         imageSinDescripcion = this.image.replace('data:image/png;base64,','');
@@ -119,17 +123,15 @@ export class RegistroCursoComponent implements OnInit {
       if(this.image.includes('data:image/gif;base64,')){
         imageSinDescripcion = this.image.replace('data:image/gif;base64,','');
       }
-      // console.log(imageSinDescripcion);
       this.imageService.uploadImage(imageSinDescripcion).subscribe(
 
         (event: HttpEvent<any>) =>{
           switch (event.type) {
             case HttpEventType.UploadProgress:
               this.progress = Math.round(event.loaded / event.total * 100);
-              // console.log(`Uploaded! ${this.progress}%`);
+
               break;
             case HttpEventType.Response:
-              // console.log(event.body);
               this.foto = event.body.data.url;
               this.progress = 0;
           }

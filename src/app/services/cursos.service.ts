@@ -63,8 +63,10 @@ export class CursosService {
     return this.http.put<any[]>(this.apiPutCursos + curso.id_cursos, newSession, cudOptions);
   }
 
-  deleteCurso(id:number):Observable<any>{
-    return this.http.delete(this.apiDeleteCursos + id);
+  deleteCurso(curso: Curso):Observable<any>{
+    curso.estado_eliminacion = 1;
+    const newSession = Object.assign({},curso);
+    return this.http.put<any[]>(this.apiPutCursos + curso.id_cursos, newSession, cudOptions);
   }
 
 

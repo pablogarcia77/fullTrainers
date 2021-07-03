@@ -243,3 +243,9 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
     font-family: 'Roboto';
   }
 }
+.active-list-item{
+  background-color: #5175b3 !important;
+}
+.white-text{
+  color: white;
+}

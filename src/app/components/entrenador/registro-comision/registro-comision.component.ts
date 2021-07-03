@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Curso } from 'src/app/interfaces/curso';
 import { ComisionesService } from 'src/app/services/comisiones.service';
 
@@ -12,7 +13,6 @@ import { ComisionesService } from 'src/app/services/comisiones.service';
 export class RegistroComisionComponent implements OnInit {
 
   comisionForm: any;
-  estado: boolean = false;
   curso!: Curso;
 
   constructor(
@@ -20,7 +20,8 @@ export class RegistroComisionComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: {curso: Curso},
     private comisionesService: ComisionesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.curso = this.data.curso;
   }
@@ -47,7 +48,10 @@ export class RegistroComisionComponent implements OnInit {
     this.comisionesService.postComision(comision).subscribe(
       response => {
         if(response.ok){
-          this.estado = true;
+          this.snackBar.open("Comision agregada correctamente",'Aceptar',{
+            duration: 5000,
+            horizontalPosition: 'end'
+          })
         }
         setTimeout(() => {
           this.dialog.closeAll()

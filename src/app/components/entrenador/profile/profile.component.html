@@ -1,0 +1,162 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-12">
+            <h1>Perfil</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <mat-card-header>
+                    <div class="image-container" [ngClass]="{'blue-border':progress==0, 'white-border':progress>0}" (click)="fileInput.click()">
+                        <mat-progress-spinner
+                            [diameter]="200"
+                            [strokeWidth]="10"
+                            class="spinner"
+                            color="accent"
+                            mode="determinate"
+                            [value]="progress">
+                        </mat-progress-spinner>
+                        <img [src]="usuario.instructor.foto_perfil" [alt]="usuario.usuario" class="image" *ngIf="!foto">
+                        <img mat-card-image [src]="foto" alt="asd" class="image" *ngIf="foto">
+                        <input hidden type="file" #fileInput mat-raised-button accept="image/*" (change)="readThis($event)">
+                        <div class="content">
+                            <mat-icon class="icon">camera_alt</mat-icon>
+                            <span class="text">Cambiar Foto</span>
+                        </div>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="userForm" (submit)="editar()">
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Usuario</mat-label>
+                                    <input matInput formControlName="usuario">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password" type="password">
+                                    <mat-error *ngIf="userForm.controls.password.touched && userForm.controls.password.invalid">
+                                        <span *ngIf="userForm.controls.password.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Apellidos</mat-label>
+                                    <input matInput formControlName="apellidos">
+                                    <mat-error *ngIf="userForm.controls.apellidos.touched && userForm.controls.apellidos.invalid">
+                                        <span *ngIf="userForm.controls.apellidos.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Nombres</mat-label>
+                                    <input matInput formControlName="nombres" required>
+                                    <mat-error *ngIf="userForm.controls.nombres.touched && userForm.controls.nombres.invalid">
+                                        <span *ngIf="userForm.controls.nombres.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>DNI</mat-label>
+                                    <input matInput formControlName="dni">
+                                    <mat-error *ngIf="userForm.controls.dni.touched && userForm.controls.dni.invalid">
+                                        <span *ngIf="userForm.controls.dni.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Celular</mat-label>
+                                    <input matInput formControlName="celular">
+                                    <mat-error *ngIf="userForm.controls.celular.touched && userForm.controls.celular.invalid">
+                                        <span *ngIf="userForm.controls.celular.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Título</mat-label>
+                                    <input matInput formControlName="titulo">
+                                    <mat-error *ngIf="userForm.controls.titulo.touched && userForm.controls.titulo.invalid">
+                                        <span *ngIf="userForm.controls.titulo.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>CV Corto</mat-label>
+                                    <input matInput formControlName="cv_corto">
+                                    <mat-error *ngIf="userForm.controls.cv_corto.touched && userForm.controls.cv_corto.invalid">
+                                        <span *ngIf="userForm.controls.cv_corto.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Token MercadoPago</mat-label>
+                                    <input matInput formControlName="mp_access_token">
+                                    <mat-error *ngIf="userForm.controls.mp_access_token.touched && userForm.controls.mp_access_token.invalid">
+                                        <span *ngIf="userForm.controls.mp_access_token.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Clave Pública MercadoPago</mat-label>
+                                    <input matInput formControlName="mp_public_key">
+                                    <mat-error *ngIf="userForm.controls.mp_public_key.touched && userForm.controls.mp_public_key.invalid">
+                                        <span *ngIf="userForm.controls.mp_public_key.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div class="row">
+                        <div class="col-12">
+                            <button mat-raised-button color="primary" class="right" (click)="openDialog(passwordDialog)">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<ng-template #passwordDialog>
+    <h2 matDialogTitle>Confirme su Password</h2>
+    <mat-dialog-content>
+      <div class="row">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="password" type="password">
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <div class="row">
+            <div class="col-6">
+                <button class="w-100" mat-raised-button matDialogClose color="primary" (click)="editar()">Aceptar</button>
+            </div>
+            <div class="col-6">
+                <button class="w-100" mat-raised-button matDialogClose color="warn">Cancelar</button>
+            </div>
+        </div>
+    </mat-dialog-actions>
+</ng-template>

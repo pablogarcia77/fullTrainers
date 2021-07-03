@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/interfaces/usuario';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -15,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    public router: Router
+    public router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -23,10 +27,36 @@ export class LoginComponent implements OnInit {
       usuario: ['', [Validators.required]],
       password: ['', [Validators.required]],
     })
+    this.checkLogged()
   }
 
   login(){
-    this.loginService.login()
-    this.router.navigate(['panel/dashboard'])
+    let usuario = {
+      usuario: this.loginForm.get('usuario').value,
+      password: this.loginForm.get('password').value,
+      token: null,
+      instructor: null
+    }
+
+    this.loginService.login(usuario).subscribe(
+      response => {
+        usuario.token = response.token
+        usuario.instructor = response.instructor
+        usuario.password = response.password
+        localStorage.setItem('usuario',JSON.stringify(usuario))
+        this.router.navigate(['panel/dashboard'])
+      },
+      () => {
+        this.snackBar.open("Usuario o Contraseña incorrecto",'Aceptar',{
+          duration: 5000
+        })
+      }
+    )
+  }
+
+  checkLogged(){
+    if(JSON.parse(localStorage.getItem('usuario'))){
+      this.router.navigate(['panel/dashboard'])
+    }
   }
 }

@@ -11,7 +11,7 @@
                             <mat-label>Usuario</mat-label>
                             <input matInput formControlName="usuario">
                             <mat-error *ngIf="loginForm.controls.usuario.touched && loginForm.controls.usuario.invalid">
-                            <span *ngIf="loginForm.controls.usuario.errors?.required">Campo obligatorio</span>
+                                <span *ngIf="loginForm.controls.usuario.errors?.required">Campo obligatorio</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -20,7 +20,7 @@
                             <mat-label>Password</mat-label>
                             <input matInput formControlName="password" type="password">
                             <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
-                            <span *ngIf="loginForm.controls.password.errors?.required">Campo obligatorio</span>
+                                <span *ngIf="loginForm.controls.password.errors?.required">Campo obligatorio</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -29,12 +29,12 @@
             <mat-card-actions>
                 <div class="row">
                     <div class="col-12">
-                        <button mat-raised-button color="primary" class="w-100" (click)="login()">Ingresar</button>
+                        <button mat-raised-button color="primary" class="w-100">Ingresar</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button mat-raised-button class="w-100">Volver</button>
+                        <button mat-raised-button class="w-100" [routerLink]="['#']">Volver</button>
                     </div>
                 </div>
             </mat-card-actions>

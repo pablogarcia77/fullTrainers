@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Curso } from 'src/app/interfaces/curso';
 import { CursosService } from 'src/app/services/cursos.service';
 
 @Component({
@@ -10,19 +12,17 @@ import { CursosService } from 'src/app/services/cursos.service';
 })
 export class EliminarCursoComponent implements OnInit {
 
-  public nombre: string;
-  public estado: boolean = false;
-  public id: number;
+  public curso: Curso;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: {nombre: string,id:number},
+    public data: {curso: Curso},
     private cursosService: CursosService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
-    this.nombre = this.data.nombre;
-    this.id = this.data.id;
+    this.curso = this.data.curso;
   }
 
   ngOnInit(): void {
@@ -31,9 +31,12 @@ export class EliminarCursoComponent implements OnInit {
 
   eliminarCurso(){
     
-    this.cursosService.deleteCurso(this.id).subscribe(
+    this.cursosService.deleteCurso(this.curso).subscribe(
       () => {
-        this.estado = true;
+        this.snackBar.open("Curso eliminado",'Aceptar',{
+          duration: 5000,
+          horizontalPosition: 'end'
+        })
         let currentUrl = this.router.url;
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';

@@ -21,6 +21,7 @@ import { ComisionesComponent } from './comisiones/comisiones.component';
 import { RegistroComisionComponent } from './registro-comision/registro-comision.component';
 import { DetalleComisionComponent } from './detalle-comision/detalle-comision.component';
 import { ComisionComponent } from './comision/comision.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ComisionComponent } from './comision/comision.component';
     ComisionesComponent,
     RegistroComisionComponent,
     DetalleComisionComponent,
-    ComisionComponent
+    ComisionComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

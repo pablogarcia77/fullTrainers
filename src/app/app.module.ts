@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/layout/login/login.component';
 import { PanelComponent } from './components/layout/panel/panel.component';
 import { NotfoundComponent } from './components/layout/notfound/notfound.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,7 +29,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,

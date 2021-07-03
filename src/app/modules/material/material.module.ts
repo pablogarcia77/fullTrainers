@@ -16,6 +16,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -38,7 +41,10 @@ import {MatChipsModule} from '@angular/material/chips';
     MatInputModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    FormsModule,
   ],
   exports: [
     CommonModule,
@@ -57,7 +63,10 @@ import {MatChipsModule} from '@angular/material/chips';
     MatInputModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    FormsModule,
   ]
 })
 

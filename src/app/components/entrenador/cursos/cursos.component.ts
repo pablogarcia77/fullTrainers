@@ -10,6 +10,7 @@ import { RegistroCursoComponent } from '../registro-curso/registro-curso.compone
 import { EditarCursoComponent } from '../editar-curso/editar-curso.component';
 import { EliminarCursoComponent } from '../eliminar-curso/eliminar-curso.component';
 import { DetalleComisionComponent } from '../detalle-comision/detalle-comision.component';
+import { Usuario } from 'src/app/interfaces/usuario';
 
 @Component({
   selector: 'app-cursos',
@@ -26,7 +27,7 @@ export class CursosComponent{
 
   inscripcion!: any;
 
-  
+  public usuario: Usuario;
 
   @ViewChild(MatSort, {static: false}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
@@ -42,9 +43,11 @@ export class CursosComponent{
 
 
   ngOnInit(): void {
+
+    this.usuario = JSON.parse(localStorage.getItem('usuario'))
     
     this.cursos = new Array<Curso>();
-    this.cursosService.getCursos().subscribe(
+    this.cursosService.getCursosByInstructor(this.usuario.instructor.id_instructores).subscribe(
       response => {
         // console.log(response.rows);
         this.cursos = response.rows;
@@ -89,13 +92,12 @@ export class CursosComponent{
     )
   }
 
-  eliminarCurso(nombre:string,id: number){
+  eliminarCurso(curso: Curso){
     this.dialog.open(
       EliminarCursoComponent,
       {
         data: {
-          nombre,
-          id
+          curso
         },
       }
     )

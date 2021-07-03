@@ -64,7 +64,7 @@
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let curso">
             <mat-icon aria-hidden="false" aria-label="Editar" class="edit" (click)="editarCurso(curso)">edit</mat-icon>
-            <mat-icon aria-hidden="false" aria-label="Eliminar" class="delete" (click)="eliminarCurso(curso.nombre,curso.id_cursos)">delete</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Eliminar" class="delete" (click)="eliminarCurso(curso)">delete</mat-icon>
             <mat-icon aria-hidden="false" aria-label="Ver Comisiones" class="view" (click)="verComisiones(curso)">supervised_user_circle</mat-icon>
           </td>
         </ng-container>
