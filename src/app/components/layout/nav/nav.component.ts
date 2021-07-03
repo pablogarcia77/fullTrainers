@@ -31,7 +31,7 @@ export class NavComponent implements OnInit{
   }
 
   logOut(){
-    localStorage.setItem('usuario',null);
+    localStorage.removeItem('usuario');
     this.router.navigate(['login'])
   }
 

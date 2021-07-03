@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     let usuario = {
+      id_usuarios: null,
       usuario: this.loginForm.get('usuario').value,
       password: this.loginForm.get('password').value,
       token: null,
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(usuario).subscribe(
       response => {
+        usuario.id_usuarios = response.id_usuarios
         usuario.token = response.token
         usuario.instructor = response.instructor
         usuario.password = response.password

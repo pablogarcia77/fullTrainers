@@ -3,11 +3,13 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Instructor } from 'src/app/interfaces/instructor';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { ImageService } from 'src/app/services/image.service';
 import { InstructoresService } from 'src/app/services/instructores.service';
 import { LoginService } from 'src/app/services/login.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,9 +30,11 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private imageService: ImageService,
     private instructoresService: InstructoresService,
+    private usuariosService: UsuariosService,
     private loginService: LoginService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -65,39 +69,73 @@ export class ProfileComponent implements OnInit {
         cv_corto: this.userForm.get('cv_corto').value,
         mp_access_token: this.userForm.get('mp_access_token').value,
         mp_public_key: this.userForm.get('mp_public_key').value,
-        foto_perfil: this.foto
+        foto_perfil: (this.foto) ? this.foto : this.instructor.foto_perfil
       }
       let usuario = {
         instructor: instructor,
         usuario: this.userForm.get('usuario').value,
         password: this.userForm.get('password').value,
       }
-      console.log(usuario)
-      this.instructoresService.putInstructor(instructor).subscribe(
-        response => {
-          if(response.ok){
-            this.snackBar.open(
-              'Datos ctualizados correctamente',
-              'Aceptar',
-              {
-                horizontalPosition: 'end',
-                duration: 5000
-              }
-            )
-            this.reLogin()
-          }else{
-            this.snackBar.open(
-              'Ocurrio un error, intente más tarde',
-              'Aceptar',
-              {
-                horizontalPosition: 'end',
-                duration: 5000
-              }
-            )
-          }
-          
+      if(usuario.password != this.usuario.password){
+        let user = {
+          id_usuarios: this.usuario.id_usuarios,
+          password: usuario.password,
+          activo: 1
         }
-      )
+        this.usuariosService.putUsuario(user).subscribe(
+          response => {
+            if(response.ok){
+              this.snackBar.open(
+                'Datos actualizados correctamente, debe entrar de nuevo al sistema',
+                'Aceptar',
+                {
+                  horizontalPosition: 'end',
+                  duration: 2000
+                }
+              )
+              setTimeout(() => {
+                localStorage.removeItem('usuario')
+                this.router.navigate(['login'])
+              }, 3000);
+            }else{
+              this.snackBar.open(
+                'Ocurrio un error, intente más tarde',
+                'Aceptar',
+                {
+                  horizontalPosition: 'end',
+                  duration: 5000
+                }
+              )
+            }
+          }
+        )
+      }else{
+        this.instructoresService.putInstructor(instructor).subscribe(
+          response => {
+            if(response.ok){
+              this.snackBar.open(
+                'Datos actualizados correctamente',
+                'Aceptar',
+                {
+                  horizontalPosition: 'end',
+                  duration: 5000
+                }
+              )
+              this.reLogin()
+            }else{
+              this.snackBar.open(
+                'Ocurrio un error, intente más tarde',
+                'Aceptar',
+                {
+                  horizontalPosition: 'end',
+                  duration: 5000
+                }
+              )
+            }
+            
+          }
+        )
+      }
     }else{
       this.snackBar.open(
         'Contraseña incorrecta!',
@@ -146,11 +184,13 @@ export class ProfileComponent implements OnInit {
   }
 
   openDialog(templateRef: TemplateRef<any>){
+    this.password = null
     this.dialog.open(templateRef)
   }
 
   reLogin(){
     let usuario = {
+      id_usuarios: this.usuario.id_usuarios,
       usuario: this.usuario.usuario,
       password: this.usuario.password,
       token: null,
