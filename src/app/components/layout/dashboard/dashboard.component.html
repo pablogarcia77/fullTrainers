@@ -1,1 +1,25 @@
-<p>dashboard works!</p>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-12">
+            <h1>Recaudación por Curso</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4" *ngFor="let curso of cursos">
+            <mat-card>
+                <h1>{{curso.nombre}}</h1>
+                <h3>Total recaudado: ${{curso.total}},00</h3>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h1>Estadistica</h1>
+        </div>
+    </div>
+</div>

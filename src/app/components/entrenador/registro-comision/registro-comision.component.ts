@@ -49,7 +49,7 @@ export class RegistroComisionComponent implements OnInit {
       response => {
         if(response.ok){
           this.snackBar.open("Comision agregada correctamente",'Aceptar',{
-            duration: 5000,
+            duration: 1000,
             horizontalPosition: 'end'
           })
         }

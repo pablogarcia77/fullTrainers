@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+}
+.edit:hover{
+    color: #0d47a1;
+    cursor: pointer;
+}
+.delete:hover{
+    color: #b71c1c;
+    cursor: pointer;
+}
+.view:hover{
+    cursor: pointer;
+    color: #1b5e20;
+}
+.contenedor{
+    margin: 20px auto;
+}
+.demo-inline-calendar-card {
+    width: 300px;
+}

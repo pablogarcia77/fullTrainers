@@ -21,7 +21,7 @@ export class CursosComponent{
 
   dataSource: MatTableDataSource<Curso>;
 
-  displayedColumns: string[] = ['id_cursos', 'nombre', 'habilita_inscripcion', 'estado_publicacion', 'precio_inscripcion','precio_cuota','acciones'];
+  displayedColumns: string[] = ['nombre', 'habilita_inscripcion', 'estado_publicacion', 'precio_inscripcion','precio_cuota','inscriptos','acciones'];
 
   cursos: Array<Curso>;
 
@@ -78,7 +78,8 @@ export class CursosComponent{
     this.dialog.open(
       RegistroCursoComponent,
         {
-          width: '40%',
+          width: '51.3%',
+          maxHeight: '100vh'
         }
       )
   }
@@ -88,6 +89,8 @@ export class CursosComponent{
       EditarCursoComponent,
       {
         data: {curso},
+        width: '51.3%',
+        maxHeight: '100vh'
       }
     )
   }

@@ -19,6 +19,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -45,6 +49,10 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     FormsModule,
+    MatCheckboxModule,
+    YouTubePlayerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     CommonModule,
@@ -67,6 +75,10 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     FormsModule,
+    MatCheckboxModule,
+    YouTubePlayerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 

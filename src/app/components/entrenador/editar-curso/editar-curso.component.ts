@@ -1,9 +1,9 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { Curso } from 'src/app/interfaces/curso';
 import { Subrubro } from 'src/app/interfaces/subrubro';
 import { CursosService } from 'src/app/services/cursos.service';
@@ -15,13 +15,15 @@ import { SubrubrosService } from 'src/app/services/subrubros.service';
   templateUrl: './editar-curso.component.html',
   styleUrls: ['./editar-curso.component.scss']
 })
-export class EditarCursoComponent implements OnInit {
+export class EditarCursoComponent implements AfterViewInit, OnDestroy {
 
   public curso: Curso;
 
   public progress: number = 0;
 
   public image!:any;
+
+  public videoId!: string;
 
   cursoForm: any;
 
@@ -31,6 +33,10 @@ export class EditarCursoComponent implements OnInit {
 
   public subrubros!: Array<Subrubro>
 
+  @ViewChild('demoYouTubePlayer') demoYouTubePlayer: ElementRef<HTMLDivElement>;
+  mediaWidth: number | undefined;
+  mediaHeight: number | undefined;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {curso: Curso},
@@ -39,7 +45,9 @@ export class EditarCursoComponent implements OnInit {
     private subrubrosService: SubrubrosService,
     private router: Router,
     public dialog: MatDialog,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) {
     this.curso = this.data.curso;
     this.subrubros = new Array<Subrubro>();
@@ -64,24 +72,48 @@ export class EditarCursoComponent implements OnInit {
       res => {
         this.selected = res
         console.log(this.selected)
-        this.cursoForm = this.formBuilder.group({
-          nombre: [this.curso.nombre, [Validators.required]],
-          descripcion: [this.curso.descripcion, [Validators.required]],
-          publico_destinado: [this.curso.publico_destinado, [Validators.required]],
-          requisitos: [this.curso.requisitos, [Validators.required]],
-          url_imagen_presentacion: [this.curso.url_imagen_presentacion, [Validators.required]],
-          url_video_presentacion: [this.curso.url_video_presentacion, [Validators.required]],
-          precio_inscripcion: [this.curso.precio_inscripcion, [Validators.required]],
-          precio_cuota: [this.curso.precio_cuota, [Validators.required]],
-          cantidad_cuotas: [this.curso.cantidad_cuotas, [Validators.required]],
-          subrubro: [this.selected.id_subrubros]
-        })
+        
       }
     )
+
+    
+
+    let str = this.curso.url_video_presentacion
+    let idVideo = (str.includes("=")) ? str.split("=") : str.split("/")
+    this.videoId = idVideo[idVideo.length - 1]
+
+    this.cursoForm = this.formBuilder.group({
+      nombre: [this.curso.nombre, [Validators.required]],
+      descripcion: [this.curso.descripcion, [Validators.required]],
+      publico_destinado: [this.curso.publico_destinado, [Validators.required]],
+      requisitos: [this.curso.requisitos, [Validators.required]],
+      url_imagen_presentacion: [this.curso.url_imagen_presentacion, [Validators.required]],
+      url_video_presentacion: [this.curso.url_video_presentacion, [Validators.required]],
+      precio_inscripcion: [this.curso.precio_inscripcion, [Validators.required]],
+      precio_cuota: [this.curso.precio_cuota, [Validators.required]],
+      cantidad_cuotas: [this.curso.cantidad_cuotas, [Validators.required]],
+      subrubro: [this.selected.id_subrubros]
+    })
     console.log(this.selected)
     
     
     
+  }
+
+  ngAfterViewInit(): void {
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+  }
+
+  onResize = (): void => {
+    // Automatically expand the video to fit the page up to 1200px x 720px
+    this.mediaWidth = Math.min(this.demoYouTubePlayer.nativeElement.clientWidth, 1200);
+    this.mediaHeight = this.mediaWidth * 0.6;
+    this._changeDetectorRef.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.onResize);
   }
 
   async getCurso():Promise<any>{
@@ -115,10 +147,26 @@ export class EditarCursoComponent implements OnInit {
         let currentUrl = this.router.url;
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
+        this.snackBar.open(
+          'Curso editado','Aceptar',
+          {
+            horizontalPosition: 'end',
+            duration: 1000
+          }
+        )
         setTimeout(() => {
           this.router.navigate([currentUrl]);
           this.dialog.closeAll();
         }, 1200);
+      },
+      () => {
+        this.snackBar.open(
+          'Ocurrio un error, intente más tarde','Aceptar',
+          {
+            horizontalPosition: 'end',
+            duration: 1000,
+          }
+        )
       }
     )
   }
@@ -163,4 +211,12 @@ export class EditarCursoComponent implements OnInit {
       )
     }
   }
+
+  urlVideo(){
+    let str = this.cursoForm.get('url_video_presentacion').value
+    let idVideo = (str.includes("=")) ? str.split("=") : str.split("/")
+    this.videoId = idVideo[idVideo.length - 1]
+    console.log(idVideo[idVideo.length - 1])
+  }
+
 }

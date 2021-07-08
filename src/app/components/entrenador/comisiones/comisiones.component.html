@@ -23,11 +23,18 @@
                                 <span>Horarios: {{comision.horario}}</span>
                             </div>
                             <div class="row">
-                                <span>Cupo: {{comision.cupo}}</span>
+                                <span>Inscriptos: {{comision.inscriptos}}/{{comision.cupo}}</span>
                             </div>
                         </mat-card-content>
                         <mat-card-actions>
-                            <button mat-raised-button color="primary" [routerLink]="['/panel/comision/',comision.idComision]" class="right">Ver Alumnos</button>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button mat-raised-button color="accent" [routerLink]="['/panel/comision/asistencia/',comision.idComision]" class="w-100">Asistencia</button>
+                                </div>
+                                <div class="col-6">
+                                    <button mat-raised-button color="primary" [routerLink]="['/panel/comision/',comision.idComision]" class="w-100">Ver Alumnos</button>
+                                </div>
+                            </div>
                         </mat-card-actions>
                     </mat-card>
                 </div>

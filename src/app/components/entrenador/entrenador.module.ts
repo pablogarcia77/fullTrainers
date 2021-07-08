@@ -22,6 +22,7 @@ import { RegistroComisionComponent } from './registro-comision/registro-comision
 import { DetalleComisionComponent } from './detalle-comision/detalle-comision.component';
 import { ComisionComponent } from './comision/comision.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AsistenciaComponent } from './asistencia/asistencia.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProfileComponent } from './profile/profile.component';
     RegistroComisionComponent,
     DetalleComisionComponent,
     ComisionComponent,
-    ProfileComponent
+    ProfileComponent,
+    AsistenciaComponent
   ],
   imports: [
     CommonModule,

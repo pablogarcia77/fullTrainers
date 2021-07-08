@@ -27,6 +27,7 @@ export class CursosService {
 
   // Variables de URL API REST
   private apiGetCursos = this.urlBase + '/cursos/';
+  private apiGetCursosPagos = this.urlBase + '/pagos/';
   private apiGetCursosByInstructor = this.urlBase + '/cursos/instructor/';
   private apiGetCursosComisionesByInstructor = this.urlBase + '/curso/comisiones/instructor/';
   private apiPostCursos = this.urlBase + '/cursos/';
@@ -67,6 +68,10 @@ export class CursosService {
     curso.estado_eliminacion = 1;
     const newSession = Object.assign({},curso);
     return this.http.put<any[]>(this.apiPutCursos + curso.id_cursos, newSession, cudOptions);
+  }
+
+  getCursosPagos():Observable<any>{
+    return this.http.get(this.apiGetCursosPagos);
   }
 
 

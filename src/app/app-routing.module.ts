@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AlumnosComponent } from './components/entrenador/alumnos/alumnos.component';
+import { AsistenciaComponent } from './components/entrenador/asistencia/asistencia.component';
 import { ComisionComponent } from './components/entrenador/comision/comision.component';
 import { ComisionesComponent } from './components/entrenador/comisiones/comisiones.component';
 import { CursosComponent } from './components/entrenador/cursos/cursos.component';
@@ -25,7 +26,8 @@ const routes: Routes = [
       { path: 'alumnos', component: AlumnosComponent },
       { path: 'comisiones', component: ComisionesComponent },
       { path: 'pagos', component: PagosComponent },
-      { path: 'comision/:id_comisiones', component: ComisionComponent }
+      { path: 'comision/:id_comisiones', component: ComisionComponent },
+      { path: 'comision/asistencia/:id_comisiones', component: AsistenciaComponent }
     ]
   },
   { path: 'registro', component: RegistroComponent },

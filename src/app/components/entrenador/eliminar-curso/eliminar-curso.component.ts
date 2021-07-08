@@ -34,7 +34,7 @@ export class EliminarCursoComponent implements OnInit {
     this.cursosService.deleteCurso(this.curso).subscribe(
       () => {
         this.snackBar.open("Curso eliminado",'Aceptar',{
-          duration: 5000,
+          duration: 1000,
           horizontalPosition: 'end'
         })
         let currentUrl = this.router.url;

@@ -26,6 +26,9 @@
 .image-container:hover .image{
     opacity: 0.5;
 }
+.image:hover{
+    transform: scale(0.5);
+}
 .image-container > .image {
     position:absolute;
     left: -100%;

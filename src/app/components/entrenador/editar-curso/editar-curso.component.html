@@ -5,17 +5,47 @@
             <div class="row">
                 <div class="col-12">
                     <mat-card class="example-card">
-                        <mat-card-header>
-                          <mat-card-title>Imagen de Presentación</mat-card-title>
-                        </mat-card-header>
-                        <div class="image-container">
-                            <img mat-card-image [src]="curso?.url_imagen_presentacion" alt="curso?.nombre" class="image">
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-card-title>Imagen de Presentación</mat-card-title>
+                            </div>
+                            <div class="col-6">
+                                <mat-card-title>Video de Presentación</mat-card-title>
+                            </div>
                         </div>
-                        <mat-progress-bar mode="determinate" [value]="progress" *ngIf="progress > 0"></mat-progress-bar>
-                        <mat-card-actions>
-                            <input type="file" mat-raised-button accept="image/*" (change)="readThis($event)">
-                          <!-- <button mat-button>Subir Imagen</button> -->
-                        </mat-card-actions>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="imageContainer" #imageContainer [style.width.px]="mediaWidth" [style.height.px]="mediaHeight">
+                                    <img mat-card-image [src]="curso?.url_imagen_presentacion" alt="curso?.nombre" class="image">
+                                </div>
+                                <mat-progress-bar mode="determinate" [value]="progress" *ngIf="progress > 0"></mat-progress-bar>
+                            </div>
+                            <div class="col-6">
+                                <div class="demoYouTubePlayer" #demoYouTubePlayer>
+                                    <youtube-player suggestedQuality="highres" 
+                                        [height]="mediaHeight" 
+                                        [width]="mediaWidth" [videoId]="videoId">
+                                    </youtube-player>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label id="custom-input">
+                                    <button type="button" mat-stroked-button color="primary" (click)="uploadImage.click()" class="uploadButton">Subir archivo</button>
+                                    <input type="file" #uploadImage style="display:none" accept="image/*" (change)="readThis($event)">
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Url video presentacion</mat-label>
+                                    <input matInput formControlName="url_video_presentacion" (change)="urlVideo()">
+                                    <mat-error *ngIf="cursoForm.controls.url_video_presentacion.touched && cursoForm.controls.url_video_presentacion.invalid">
+                                        <span *ngIf="cursoForm.controls.url_video_presentacion.errors?.required">Campo obligatorio</span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
                     </mat-card>
                 </div>
             </div>
@@ -59,26 +89,6 @@
                     </mat-form-field>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-6">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Url imagen de presentacion</mat-label>
-                        <input matInput formControlName="url_imagen_presentacion">
-                        <mat-error *ngIf="cursoForm.controls.url_imagen_presentacion.touched && cursoForm.controls.url_imagen_presentacion.invalid">
-                            <span *ngIf="cursoForm.controls.url_imagen_presentacion.errors?.required">Campo obligatorio</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col-6">
-                    <mat-form-field class="w-100" appearance="outline">
-                        <mat-label>Url video presentacion</mat-label>
-                        <input matInput formControlName="url_video_presentacion">
-                        <mat-error *ngIf="cursoForm.controls.url_video_presentacion.touched && cursoForm.controls.url_video_presentacion.invalid">
-                            <span *ngIf="cursoForm.controls.url_video_presentacion.errors?.required">Campo obligatorio</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-            </div> -->
             <div class="row">
                 <div class="col-6">
                     <mat-form-field class="w-100" appearance="outline">
@@ -119,16 +129,6 @@
                             <mat-option [value]="subrubro" *ngFor="let subrubro of subrubros">{{subrubro.nombre}}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
-            </div>
-            <div class="row" *ngIf="estado">
-                <div class="col s12">
-                    <p>Curso editado correctamente</p>
-                </div>
-            </div>
-            <div class="row" *ngIf="!estado && estado != undefined">
-                <div class="col s12">
-                    <p>Ocurrio un error, intente nuevamente</p>
                 </div>
             </div>
             <div class="row">
