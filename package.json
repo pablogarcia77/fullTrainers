@@ -22,7 +22,10 @@
     "@angular/platform-browser-dynamic": "~11.2.9",
     "@angular/router": "~11.2.9",
     "@angular/youtube-player": "^12.1.1",
+    "@juggle/resize-observer": "^3.3.1",
+    "echarts": "^5.1.2",
     "materialize-css": "^1.0.0",
+    "ngx-echarts": "^7.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

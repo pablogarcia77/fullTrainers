@@ -38,8 +38,7 @@ export class AsistenciaService {
   }
 
   postAsistencias(arrayAlumnos: any):Observable<any>{
-    const newSession = Object.assign({},arrayAlumnos);
-    return this.http.post<any[]>(this.apiPostAsistencias,newSession,cudOptions);
+    return this.http.post<any[]>(this.apiPostAsistencias,arrayAlumnos,cudOptions);
   }
 
 }

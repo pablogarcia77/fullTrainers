@@ -14,12 +14,39 @@
     </div>
     <div class="row">
         <div class="col-12">
+            <mat-card>
+                <mat-card-title>Total recaudado: ${{bigTotal}},00</mat-card-title>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <mat-divider></mat-divider>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <h1>Estadistica</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <mat-card-title>
+                    <h2>Cantidad de Inscripciones por Cursos</h2>
+                </mat-card-title>
+                <mat-card-content>
+                    <div echarts [options]="barChartOption" class="demo-chart"></div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-12">
+            <mat-card>
+                <mat-card-title>Cantidad de Inscripciones por Fecha</mat-card-title>
+                <mat-card-content>
+                    <div echarts [options]="lineChartOption" class="demo-chart"></div>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

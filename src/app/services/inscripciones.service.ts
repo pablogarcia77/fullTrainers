@@ -35,4 +35,12 @@ export class InscripcionesService {
     return this.http.get(this.apiGetInscripciones + comision);
   }
 
+  getAllInscripciones():Observable<any>{
+    return this.http.get(this.apiGetInscripciones)
+  }
+
+  getInscripcionesFechas():Observable<any>{
+    return this.http.get(this.apiGetInscripciones + 'fechas/')
+  }
+
 }

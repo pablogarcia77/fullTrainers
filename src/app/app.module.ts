@@ -15,7 +15,8 @@ import { LoginComponent } from './components/layout/login/login.component';
 import { PanelComponent } from './components/layout/panel/panel.component';
 import { NotfoundComponent } from './components/layout/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgxEchartsModule } from 'ngx-echarts';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     EntrenadorModule,
     HttpClientModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

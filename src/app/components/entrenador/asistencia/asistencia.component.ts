@@ -90,6 +90,7 @@ export class AsistenciaComponent implements OnInit {
   }
 
   saveAsistencia(){
+    console.log(this.asistencia)
     this.asistenciaService.postAsistencias(this.asistencia).subscribe(
       response => {
         console.log(response)
