@@ -16,7 +16,7 @@ import { PanelComponent } from './components/layout/panel/panel.component';
 import { NotfoundComponent } from './components/layout/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { DatePipe } from '@angular/common';
       echarts: () => import('echarts'),
     }),
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

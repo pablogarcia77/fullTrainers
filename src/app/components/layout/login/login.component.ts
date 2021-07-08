@@ -61,4 +61,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['panel/dashboard'])
     }
   }
+
+  volver(){
+    window.open('http://localhost/trainers/','_self')
+  }
 }
